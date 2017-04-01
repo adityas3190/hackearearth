@@ -17,12 +17,28 @@ class BattleController extends Controller
     //This function fetches the rank of all the kings and sends it across to the homepage view
     public function index()
     {
+            //return $this->kingArray;
+            //return $finalData;
+            return view('main.main')->with('results',$this->getPlayerData());
+    }
+    public function battles()
+    {
+        return view('main.battle')->with('results',$this->getBattleData());
+    }
+    //Get battle data
+    public function getBattleData()
+    {
+        return Battle::all();
+    }
+    //Get player data
+    public function getPlayerData()
+    {
         $objectsBattle = Battle::get();
         foreach ($objectsBattle as $data)
         {
             if($data->attacker_king == "" || $data->defender_king == "")
                 continue;
-            
+
             $attackKingRating = $this->getRatings($data->attacker_king);//r1
             $defendKingRating = $this->getRatings($data->defender_king);//r2
             $transformAttackKingRating = (pow(10,$attackKingRating/$this->n));//R1
@@ -37,24 +53,18 @@ class BattleController extends Controller
             $this->kingArray[$data->defender_king] = $finalRatingDefender;
 
         }
-            arsort($this->kingArray);
-            $finalData = array();
-            $countNames = 0;
-            foreach ($this->kingArray as $key=>$value)
-            {
-                $finalData[$countNames]['id'] = $countNames;
-                $finalData[$countNames]['name'] = $key;
-                $finalData[$countNames]['rating'] = $value;
-                 $finalData[$countNames]['battleDetails'] = $this->getDetails($key);
-                $countNames++;
-            }
-            //return $this->kingArray;
-            //return $finalData;
-            return view('main.main')->with('results',$finalData);
-    }
-    public function battles()
-    {
-        return view('main.battle')->with('results',Battle::all());
+        arsort($this->kingArray);
+        $finalData = array();
+        $countNames = 0;
+        foreach ($this->kingArray as $key=>$value)
+        {
+            $finalData[$countNames]['id'] = $countNames;
+            $finalData[$countNames]['name'] = $key;
+            $finalData[$countNames]['rating'] = $value;
+            $finalData[$countNames]['battleDetails'] = $this->getDetails($key);
+            $countNames++;
+        }
+        return $finalData;
     }
     //Get a verdict of a battle
     private function battleResult($verdict)

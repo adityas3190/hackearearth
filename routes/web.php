@@ -16,3 +16,5 @@
     });*/
 Route::get('/','BattleController@index');
 Route::get('/battles','BattleController@battles');
+Route::get('/playerData','BattleController@getPlayerData');
+Route::get('/battleData','BattleController@getBattleData');
