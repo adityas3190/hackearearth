@@ -102,10 +102,10 @@
 
     </div>
     <div class="container">
-
-
-
     @yield('content')
+    <div class="" style="text-align: center">
+        <a href="http://docdro.id/kXLo5BJ" target="_blank"><b>About the Developer</b></a>
+    </div>
     </div>
 </body>
 </html>
