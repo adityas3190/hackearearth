@@ -100,7 +100,7 @@ class BattleController extends Controller
                 else
                 {
                     $lostBattles[$battlesLost]['year'] = $result->year;
-                    $lostBattles[$battlesLost]['defeated'] = $result->attacker_king;
+                    $lostBattles[$battlesLost]['defeated'] = $result->defender_king;
                     $lostBattles[$battlesLost]['type'] = $result->battle_type;
                     $lostBattles[$battlesLost]['location'] = $result->location;
                     $battlesLost++;
@@ -111,7 +111,7 @@ class BattleController extends Controller
                 if($result->attacker_outcome != "win")
                 {
                     $wonBattles[$battlesWon]['year'] = $result->year;
-                    $wonBattles[$battlesWon]['defeated'] = $result->defender_king;
+                    $wonBattles[$battlesWon]['defeated'] = $result->attacker_king;
                     $wonBattles[$battlesWon]['type'] = $result->battle_type;
                     $wonBattles[$battlesWon]['location'] = $result->location;
                     $battlesWon++;
